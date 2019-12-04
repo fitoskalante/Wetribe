@@ -1,22 +1,75 @@
-.App {
+html, body {
+  margin: 0;
+}
+
+#App {
+  height: 100vh;
+}
+
+#page-wrap {
   text-align: center;
+  overflow: auto;
+  height: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: white;
+  transition: color 0.2s;
+  outline: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.bm-item:hover {
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  right: 36px;
+  top: 36px;
+}
+
+.bm-burger-bars {
+  background: #2FBD92;
+}
+
+/* Position and sizing of clickable cross button */
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+
+.bm-cross {
+  background: white;
+}
+
+/* General sidebar styles */
+
+.bm-menu {
+  background: #2FBD92;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+.bm-item-list {
+  color: #b8b7ad;
+}
+
+/* Styling of overlay */
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.jumbotron {
+  background-image: url(./img/beach.jpeg);
+  background-size: cover;
+  height: 100%;
 }
