@@ -1,38 +1,55 @@
 import React from "react";
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
+import logo from "../img/logo-white.png";
+import { Link } from "react-router-dom";
 
 export default function Navibar(props) {
-  const logout = async () => {
-    const res = await fetch("https://127.0.0.1:5000/logout", {
-      headers: {
-        Authorization: `Token ${sessionStorage.getItem("token")}`
-      }
-    });
-    if (res.ok) {
-      sessionStorage.clear("token");
-      props.setUser(null);
-    }
-  };
-
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">Final Project</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          {!props.user ? (
-            <>
-              <Nav.Link href="/signin">Sign In</Nav.Link>
-              <Nav.Link href="/signup">Sign Up</Nav.Link>
-            </>
-          ) : (
-            <>
-              <Nav.Link href="/">My Profile</Nav.Link>
-              <Button onClick={() => logout()}>Sign Out</Button>
-            </>
-          )}
-        </Nav>
-      </Navbar.Collapse>
+    <Navbar className="navibar font-weight-bold" variant="dark" expand="lg">
+      <div className="container p-3 ">
+        <Navbar.Brand href="/">
+          <img
+            alt="logo"
+            src={logo}
+            width="150"
+            className="d-inline-block align-top "
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            {" "}
+            <Link
+              to="/create-event"
+              className="navlink-one-side-border pr-5 text-white nav-link"
+            >
+              Create a Tribe
+            </Link>
+            {!props.user ? (
+              <>
+                <Link to="/signin" className="pl-lg-5 nav-link">
+                  Sign in
+                </Link>
+                <Link to="/signup" className=" nav-link">
+                  Join
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/" className="pl-lg-5 nav-link">
+                  My Profile
+                </Link>
+                <Nav.Link
+                  className="nav-link"
+                  onClick={() => props.setModalSoShow(true)}
+                >
+                  Sign Out
+                </Nav.Link>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </div>
     </Navbar>
   );
 }

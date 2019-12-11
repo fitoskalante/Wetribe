@@ -1,10 +1,11 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import useForm from "react-hook-form";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-export default function SignUp() {
+export default function Join() {
   const { register, handleSubmit } = useForm();
+  let history = useHistory();
 
   const signup = async data => {
     const res = await fetch("https://127.0.0.1:5000/register", {
@@ -18,7 +19,7 @@ export default function SignUp() {
       const data = await res.json();
       if (data.success) {
         alert(data.message);
-        return <Redirect to={"/signin"} />;
+        history.push("/signin");
       } else {
         alert(data.message);
       }
@@ -30,7 +31,7 @@ export default function SignUp() {
   return (
     <>
       <div className="container d-flex flex-column justify-content-center align-items-center h-100">
-        <h3>Sign In</h3>
+        <h3>Join the Comunity</h3>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Control
             className="my-3"

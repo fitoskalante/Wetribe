@@ -18,7 +18,7 @@ export default function SignIn(props) {
       const data = await res.json();
       if (data.success) {
         props.setUser(data.user);
-        sessionStorage.setItem("token", data.token); // 100% sure token here is valid
+        sessionStorage.setItem("token", data.token);
       } else {
         sessionStorage.clear("token");
         alert(data.message);
@@ -57,6 +57,12 @@ export default function SignIn(props) {
             <a href="https://127.0.0.1:5000/login/facebook">LOG IN WITH FB</a>
           </div>
         </Form>
+        <a className="menu-item" href="/recover">
+          Forgot your password?
+        </a>
+        <a className="menu-item" href="/signup">
+          Sign Up
+        </a>
       </div>
     </>
   );

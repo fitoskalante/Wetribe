@@ -1,11 +1,49 @@
 import React from "react";
-import { GoogleMap } from "react-google-maps";
+import { usePosition } from "./usePosition";
+import { GoogleMap, withGoogleMap, Marker } from "react-google-maps";
 
-function Map() {
+function Map(props) {
+  const position = usePosition();
   return (
-    <GoogleMap
-      defaultCenter={{ lat: 10.82302, lng: 106.62965 }}
-      defaultZoom={8}
-    ></GoogleMap>
+    <>
+      {!props.pos ? (
+        <GoogleMap
+          center={{
+            lat: parseFloat(position.latitude) || 0,
+            lng: parseFloat(position.longitude) || 0
+          }}
+          defaultZoom={10}
+        >
+          <Marker
+            getClickable={true}
+            position={{
+              lat: parseFloat(position.latitude),
+              lng: parseFloat(position.longitude)
+            }}
+            error={position.error}
+          />
+        </GoogleMap>
+      ) : (
+        <GoogleMap
+          center={{
+            lat: parseFloat(props.pos.lat),
+            lng: parseFloat(props.pos.lng)
+          }}
+          defaultZoom={10}
+        >
+          <Marker
+            draggable={true}
+            getClickable={true}
+            position={{
+              lat: parseFloat(props.pos.lat),
+              lng: parseFloat(props.pos.lng)
+            }}
+            error={position.error}
+          />
+        </GoogleMap>
+      )}
+    </>
   );
 }
+
+export const WrappedMap = withGoogleMap(Map);
