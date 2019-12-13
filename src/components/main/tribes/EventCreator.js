@@ -32,7 +32,7 @@ export default function EventCreator() {
   const handleChange = val => setCategories(val);
 
   const getPosIfNotAutocompleted = async address => {
-    const res = await fetch(`${process.env.API_URL}/getpos`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/getpos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -56,7 +56,7 @@ export default function EventCreator() {
         ? window.location.search.split("=")[1]
         : null;
 
-    const res = await fetch(`${process.env.API_URL}/create-event`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/create-event`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

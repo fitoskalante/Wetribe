@@ -27,7 +27,7 @@ export default function EventDisplay(props) {
   };
 
   const comment = async data => {
-    const res = await fetch(`${process.env.API_URL}/comment`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/comment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function EventDisplay(props) {
   };
 
   const joinEvent = async id => {
-    const res = await fetch(`${process.env.API_URL}/joinevent`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/joinevent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function EventDisplay(props) {
   };
 
   const leaveEvent = async id => {
-    const res = await fetch(`${process.env.API_URL}/leaveevent`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/leaveevent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export default function EventDisplay(props) {
 
   const getEventInfo = async () => {
     const res = await fetch(
-      `${process.env.API_URL}/geteventinfo/${params.id}`,
+      `${process.env.REACT_APP_API_URL}/geteventinfo/${params.id}`,
       {
         headers: {
           "Content-Type": "application/json",

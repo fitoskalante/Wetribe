@@ -13,6 +13,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { usePosition } from "./components/main/map/usePosition";
 
+console.log("process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL);
+
 library.add(fab, faCheckSquare, faMapMarkerAlt, faUsers, faCalendarAlt);
 
 function App() {
@@ -26,7 +28,7 @@ function App() {
     if (!pos.lat && !pos.lng && currentCity !== "") {
       return;
     } else {
-      const res = await fetch(`${process.env.API_URL}/getaddress`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/getaddress`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -90,7 +92,7 @@ function App() {
   };
 
   const logout = async () => {
-    const res = await fetch(`${process.env.API_URL}/logout`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/logout`, {
       headers: {
         Authorization: `Token ${sessionStorage.getItem("token")}`
       }
@@ -108,7 +110,13 @@ function App() {
         : null;
 
     if (!user) {
-      const res = await fetch(`${process.env.API_URL}/getuser`, {
+      console.log("accessToken", accessToken);
+      console.log(
+        'sessionStorage.getItem("token")',
+        sessionStorage.getItem("token")
+      );
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/getuser`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${accessToken ||

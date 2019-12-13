@@ -6,7 +6,7 @@ export default function EventList(props) {
   const [list, setList] = useState([]);
 
   const getEventList = async () => {
-    const res = await fetch(`${process.env.API_URL}/geteventlist`);
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/geteventlist`);
     const data = await res.json();
     setList(data);
   };

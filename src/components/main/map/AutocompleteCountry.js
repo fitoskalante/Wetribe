@@ -8,7 +8,7 @@ import PlacesAutocomplete, {
 export default function AutoCompleteCountry(props) {
   const getAddress = async pos => {
     if (pos) {
-      const res = await fetch(`${process.env.API_URL}/getaddress`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/getaddress`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

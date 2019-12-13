@@ -9,7 +9,7 @@ export default function Join() {
   let history = useHistory();
 
   const signup = async data => {
-    const res = await fetch(`${process.env.API_URL}/register`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -9,13 +9,16 @@ export default function SignUp() {
   const { token } = useParams();
 
   const setPw = async data => {
-    const res = await fetch(`${process.env.API_URL}/set-new-pw/${token}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/set-new-pw/${token}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }
+    );
     if (res.ok) {
       const data = await res.json();
       if (data.success) {
