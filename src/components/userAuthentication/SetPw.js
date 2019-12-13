@@ -9,7 +9,7 @@ export default function SignUp() {
   const { token } = useParams();
 
   const setPw = async data => {
-    const res = await fetch(`https://127.0.0.1:5000/set-new-pw/${token}`, {
+    const res = await fetch(`${process.env.API_URL}/set-new-pw/${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

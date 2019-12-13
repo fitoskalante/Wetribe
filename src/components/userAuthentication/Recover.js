@@ -8,7 +8,7 @@ export default function Recover(props) {
   const [resetSuccess, setResetSuccess] = useState(false);
 
   const reset = async data => {
-    const res = await fetch("https://127.0.0.1:5000/recover", {
+    const res = await fetch(`${process.env.API_URL}/recover`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -8,7 +8,7 @@ import PlacesAutocomplete, {
 export default function AutoCompletePlaces(props) {
   const getAddress = async pos => {
     if (pos) {
-      const res = await fetch("https://127.0.0.1:5000/getaddress", {
+      const res = await fetch(`${process.env.API_URL}/getaddress`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

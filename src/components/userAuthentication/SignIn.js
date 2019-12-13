@@ -7,7 +7,7 @@ export default function SignIn(props) {
   const { register, handleSubmit } = useForm();
 
   const login = async data => {
-    const res = await fetch("https://127.0.0.1:5000/login", {
+    const res = await fetch(`${process.env.API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -66,7 +66,9 @@ export default function SignIn(props) {
               <Button variant="outline-success" className="my-3" type="submit">
                 Sign Up
               </Button>
-              <a href="https://127.0.0.1:5000/login/facebook">LOG IN WITH FB</a>
+              <a href={`${process.env.API_URL}/login/facebook`}>
+                LOG IN WITH FB
+              </a>
             </div>
           </Form>
           <a className="menu-item" href="/recover">

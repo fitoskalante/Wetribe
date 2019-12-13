@@ -5,23 +5,49 @@ import {
   Accordion,
   Button,
   Spinner,
-  Card
+  Form
 } from "react-bootstrap";
-import { WrappedMap } from "../map/MapContainer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EventInfo from "./EventInfo";
 import Moment from "react-moment";
+import useForm from "react-hook-form";
 import ModalSignIn from "../modals/ModalSignIn";
 import { useParams, useHistory, Link } from "react-router-dom";
 
 export default function EventDisplay(props) {
+  const { register, handleSubmit, errors } = useForm();
   const [modalSignInShow, setModalSignInShow] = useState(false);
   const history = useHistory();
   const params = useParams();
   const [e, setE] = useState({ event: { lat: null, lng: null } });
   const [joined, setJoined] = useState(false);
 
+  const onSubmit = data => {
+    const id = e.event.id;
+    comment({ ...data, id });
+  };
+
+  const comment = async data => {
+    const res = await fetch(`${process.env.API_URL}/comment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${sessionStorage.getItem("token")}`
+      },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      const data = await res.json();
+      console.log("this is the data", data);
+      if (data) {
+        console.log(data);
+      } else {
+        console.log("error joining event");
+      }
+    }
+  };
+
   const joinEvent = async id => {
-    const res = await fetch("https://127.0.0.1:5000/joinevent", {
+    const res = await fetch(`${process.env.API_URL}/joinevent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +69,7 @@ export default function EventDisplay(props) {
   };
 
   const leaveEvent = async id => {
-    const res = await fetch("https://127.0.0.1:5000/leaveevent", {
+    const res = await fetch(`${process.env.API_URL}/leaveevent`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +88,7 @@ export default function EventDisplay(props) {
 
   const getEventInfo = async () => {
     const res = await fetch(
-      `https://localhost:5000/geteventinfo/${params.id}`,
+      `${process.env.API_URL}/geteventinfo/${params.id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -79,8 +105,6 @@ export default function EventDisplay(props) {
   useEffect(() => {
     getEventInfo();
   }, [joined]);
-
-  console.log(e);
 
   return (
     <>
@@ -102,7 +126,7 @@ export default function EventDisplay(props) {
                 <h2 className="mt-3">{e.event.title}</h2>
                 <p className="">
                   <Moment fromNow>{e.event.created_at}</Moment> by{" "}
-                  <a href="#">{e.user.name}</a>
+                  <a href="/">{e.user.name}</a>
                 </p>
 
                 <p>{e.event.description}</p>
@@ -151,51 +175,74 @@ export default function EventDisplay(props) {
                   <hr></hr>
 
                   <Accordion.Collapse eventKey="0">
-                    <Media>
-                      <Image
-                        roundedCircle
-                        width={64}
-                        height={64}
-                        className="mr-3"
-                        src={
-                          e.user.profile_img ||
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHSYGuMbkmv2fZQ4tdxNiSzsVTNgK_fg5iWsQanic-26hGXW6M_Q&s"
-                        }
-                        alt="profile pic"
-                      />
-                      <Media.Body>
-                        <h5>Media Heading</h5>
-                        <p>
-                          Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                          metus scelerisque ante sollicitudin commodo. Cras
-                          purus odio, vestibulum in vulputate at, tempus viverra
-                          turpis. Fusce condimentum nunc ac nisi vulputate
-                          fringilla. Donec lacinia congue felis in faucibus.
-                        </p>
-
-                        <Media>
-                          <Image
-                            roundedCircle
-                            width={64}
-                            height={64}
-                            className="mr-3"
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHSYGuMbkmv2fZQ4tdxNiSzsVTNgK_fg5iWsQanic-26hGXW6M_Q&s"
-                            alt="profile pic"
+                    <>
+                      <Form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="bg-light p-5 rounded-custom"
+                      >
+                        <Form.Group>
+                          <Form.Label>Stay Connected</Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="comment"
+                            className="rounded-lg"
+                            as="textarea"
+                            rows="3"
+                            name="comment"
+                            ref={register}
                           />
-                          <Media.Body>
-                            <h5>Media Heading</h5>
-                            <p>
-                              Cras sit amet nibh libero, in gravida nulla. Nulla
-                              vel metus scelerisque ante sollicitudin commodo.
-                              Cras purus odio, vestibulum in vulputate at,
-                              tempus viverra turpis. Fusce condimentum nunc ac
-                              nisi vulputate fringilla. Donec lacinia congue
-                              felis in faucibus.
-                            </p>
-                          </Media.Body>
-                        </Media>
-                      </Media.Body>
-                    </Media>
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                          Comment
+                        </Button>
+                      </Form>
+                      <Media>
+                        <Image
+                          roundedCircle
+                          width={64}
+                          height={64}
+                          className="mr-3"
+                          src={
+                            e.user.profile_img ||
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHSYGuMbkmv2fZQ4tdxNiSzsVTNgK_fg5iWsQanic-26hGXW6M_Q&s"
+                          }
+                          alt="profile pic"
+                        />
+                        <Media.Body>
+                          <h5>Media Heading</h5>
+                          <p>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla
+                            vel metus scelerisque ante sollicitudin commodo.
+                            Cras purus odio, vestibulum in vulputate at, tempus
+                            viverra turpis. Fusce condimentum nunc ac nisi
+                            vulputate fringilla. Donec lacinia congue felis in
+                            faucibus.
+                          </p>
+
+                          <Media>
+                            <Image
+                              roundedCircle
+                              width={64}
+                              height={64}
+                              className="mr-3"
+                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHSYGuMbkmv2fZQ4tdxNiSzsVTNgK_fg5iWsQanic-26hGXW6M_Q&s"
+                              alt="profile pic"
+                            />
+                            <Media.Body>
+                              <h5>Media Heading</h5>
+                              <p>
+                                Cras sit amet nibh libero, in gravida nulla.
+                                Nulla vel metus scelerisque ante sollicitudin
+                                commodo. Cras purus odio, vestibulum in
+                                vulputate at, tempus viverra turpis. Fusce
+                                condimentum nunc ac nisi vulputate fringilla.
+                                Donec lacinia congue felis in faucibus.
+                              </p>
+                            </Media.Body>
+                          </Media>
+                        </Media.Body>
+                      </Media>
+                    </>
                   </Accordion.Collapse>
 
                   <Accordion.Collapse eventKey="1">
@@ -203,14 +250,20 @@ export default function EventDisplay(props) {
                       <Media.Body className="container-fluid bg-light rounded-custom p-5 text-center my-3">
                         <h5 className="text-black-50">
                           You have to{" "}
-                          <Link to="/signin" className="text-decoration-none">
+                          <Link
+                            to="/auth/signin"
+                            className="text-decoration-none"
+                          >
                             Sign In
                           </Link>{" "}
                           to see the comments.
                         </h5>
                         <h6 className="text-black-50">
                           Not registered yet?{" "}
-                          <Link to="/signup" className="text-decoration-none">
+                          <Link
+                            to="/auth/signup"
+                            className="text-decoration-none"
+                          >
                             Sign Up!
                           </Link>{" "}
                         </h6>
@@ -221,49 +274,7 @@ export default function EventDisplay(props) {
               </div>
             </div>
 
-            <div className="col-12 col-md-4">
-              <div className="p-3 bg-light rounded-custom mb-3">
-                <h4 className="font-italic">Tribe</h4>
-                <p className="text-black-50 m-0 d-flex py-2">
-                  <FontAwesomeIcon icon={"users"} className="pr-3" size="2x" />{" "}
-                  {e.attendance} Members
-                </p>
-
-                <p className="text-black-50 m-0 d-flex  py-2">
-                  <FontAwesomeIcon
-                    icon={"calendar-alt"}
-                    className="pr-3"
-                    size="3x"
-                  />{" "}
-                  {e.event.date}
-                </p>
-
-                <p className="text-black-50 m-0 d-flex  py-2">
-                  <FontAwesomeIcon
-                    icon={"map-marker-alt"}
-                    className="pr-3"
-                    size="3x"
-                  />{" "}
-                  {e.event.address}
-                </p>
-              </div>
-
-              <div className="w-100">
-                <WrappedMap
-                  pos={e.event.position}
-                  setPos={props.setPos}
-                  googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
-                  loadingElement={<div />}
-                  containerElement={<div />}
-                  mapElement={
-                    <div
-                      style={{ height: "250px" }}
-                      className="rounded-custom"
-                    />
-                  }
-                />
-              </div>
-            </div>
+            <EventInfo e={e} setPos={props.setPos} />
           </div>
         )}
       </div>

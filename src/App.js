@@ -26,7 +26,7 @@ function App() {
     if (!pos.lat && !pos.lng && currentCity !== "") {
       return;
     } else {
-      const res = await fetch("https://127.0.0.1:5000/getaddress", {
+      const res = await fetch(`${process.env.API_URL}/getaddress`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -90,7 +90,7 @@ function App() {
   };
 
   const logout = async () => {
-    const res = await fetch("https://127.0.0.1:5000/logout", {
+    const res = await fetch(`${process.env.API_URL}/logout`, {
       headers: {
         Authorization: `Token ${sessionStorage.getItem("token")}`
       }
@@ -108,7 +108,7 @@ function App() {
         : null;
 
     if (!user) {
-      const res = await fetch("https://127.0.0.1:5000/getuser", {
+      const res = await fetch(`${process.env.API_URL}/getuser`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Token ${accessToken ||

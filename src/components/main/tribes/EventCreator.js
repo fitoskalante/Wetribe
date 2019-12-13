@@ -32,7 +32,7 @@ export default function EventCreator() {
   const handleChange = val => setCategories(val);
 
   const getPosIfNotAutocompleted = async address => {
-    const res = await fetch("https://127.0.0.1:5000/getpos", {
+    const res = await fetch(`${process.env.API_URL}/getpos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -56,7 +56,7 @@ export default function EventCreator() {
         ? window.location.search.split("=")[1]
         : null;
 
-    const res = await fetch("https://127.0.0.1:5000/create-event", {
+    const res = await fetch(`${process.env.API_URL}/create-event`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
