@@ -4,13 +4,23 @@ import { GoogleMap, withGoogleMap, Marker } from "react-google-maps";
 
 function Map(props) {
   const position = usePosition();
+  const loadedPosition = {
+    latitude: 0,
+    longitude: 0,
+    error: "not loaded"
+  };
+
   return (
     <>
       {!props.pos ? (
         <GoogleMap
           center={{
-            lat: parseFloat(position.latitude) || 0,
-            lng: parseFloat(position.longitude) || 0
+            lat:
+              parseFloat(position.latitude) ||
+              parseFloat(loadedPosition.latitude),
+            lng:
+              parseFloat(position.longitude) ||
+              parseFloat(loadedPosition.longitude)
           }}
           defaultZoom={10}
         >
@@ -29,7 +39,7 @@ function Map(props) {
             lat: parseFloat(props.pos.lat),
             lng: parseFloat(props.pos.lng)
           }}
-          defaultZoom={10}
+          defaultZoom={15}
         >
           <Marker
             draggable={true}

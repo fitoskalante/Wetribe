@@ -8,12 +8,12 @@ import {
   ToggleButtonGroup,
   ToggleButton
 } from "react-bootstrap";
-import { WrappedMap } from "../MapContainer";
-import AutoCompletePlaces from "../AutoCompletePlaces";
+import { WrappedMap } from "../map/MapContainer";
+import AutoCompletePlaces from "../map/AutoCompletePlaces";
 import useForm from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Route } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import EventDisplay from "./EventDisplay";
 
 export default function EventCreator() {
@@ -27,6 +27,7 @@ export default function EventCreator() {
   const [success, setSuccess] = useState(false);
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState("");
+  let history = useHistory();
 
   const handleChange = val => setCategories(val);
 
@@ -69,6 +70,7 @@ export default function EventCreator() {
       if (response.success) {
         setSuccess(true);
         console.log("event created");
+        history.push(`/event/${response.event_id}`);
       } else {
         console.log("event created failed");
       }

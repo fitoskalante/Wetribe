@@ -72,3 +72,7 @@ html, body {
 .btn-category {
   width: 180px !important;
 }
+
+.my-red {
+  background-color: #e34172 !important;
+}

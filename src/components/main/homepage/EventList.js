@@ -20,7 +20,10 @@ export default function EventList(props) {
       <div className="container-fluid py-5 bg-light">
         <div className="container text-center">
           <h1 className="py-3">
-            Tribes in <span className="text-info">{props.currentCity}</span>
+            Tribes in{" "}
+            <span className="text-info">
+              {props.searchedCity || props.currentCity}
+            </span>
           </h1>
           <CardDeck>
             {list ? (

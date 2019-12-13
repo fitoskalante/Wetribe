@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export const usePosition = () => {
   const [position, setPosition] = useState("");
@@ -13,7 +13,7 @@ export const usePosition = () => {
   const onError = error => {
     setError(error.message);
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     const geo = navigator.geolocation;
     if (!geo) {
       setError("Geolocation is not supported");
@@ -23,5 +23,5 @@ export const usePosition = () => {
     return () => geo.clearWatch(watcher);
   }, []);
   if (position) return { ...position, error };
-  return "";
+  return "no position";
 };

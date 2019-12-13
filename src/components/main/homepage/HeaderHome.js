@@ -1,5 +1,5 @@
 import React from "react";
-import illustration from "../../img//illustration.png";
+import illustration from "../../../img/illustration.png";
 
 export default function HeaderHome() {
   return (
@@ -14,7 +14,7 @@ export default function HeaderHome() {
           alt="ilustration homepage"
         />
         <div className="text-center">
-          <h3 className="display-4">Small steps make</h3>
+          <h3 className="display-4">Small steps</h3>
           <h1 className="display-1">Big Changes</h1>
           <button
             type="button"

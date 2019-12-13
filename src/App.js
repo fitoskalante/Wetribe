@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
-import SignIn from "./components/SignIn";
-import Join from "./components/Join";
-import Recover from "./components/Recover";
-import Navibar from "./components/Navibar";
-import SetPw from "./components/SetPw";
-import Homepage from "./components/Homepage";
+import Main from "./components/main/Main";
+import UserAuthentication from "./components/userAuthentication/UserAuthentication";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
-import EventCreator from "./components/tribes/EventCreator";
-import ModalSignOut from "./components/ModalSignOut";
-import EventDisplay from "./components/tribes/EventDisplay";
-import Foot from "./components/Foot";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
-import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
-import { usePosition } from "./components/usePosition";
+import {
+  faCheckSquare,
+  faMapMarkerAlt,
+  faUsers,
+  faCalendarAlt
+} from "@fortawesome/free-solid-svg-icons";
+import { usePosition } from "./components/main/map/usePosition";
 
-library.add(fab, faCheckSquare);
+library.add(fab, faCheckSquare, faMapMarkerAlt, faUsers, faCalendarAlt);
 
 function App() {
   const [user, setUser] = useState(null);
   const [currentCity, setCurrentCity] = useState("");
-  const [modalSoShow, setModalSoShow] = useState(false);
+  const [searchedCity, setSearchedCity] = useState("");
   const position = usePosition();
+  const [myPosition, setMyPosition] = useState("");
 
   const getCurrentAddress = async pos => {
     if (!pos.lat && !pos.lng && currentCity !== "") {
@@ -83,76 +81,84 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    getUser();
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }, []);
+  const setMyPos = () => {
+    if (myPosition) {
+      setMyPosition(myPosition);
+    } else if (position !== "") {
+      setMyPosition({ lat: position.latitude, lng: position.longitude });
+    }
+  };
 
-  useEffect(() => {
-    if (position)
-      getCurrentAddress({ lat: position.latitude, lng: position.longitude });
-  }, [position]);
+  const logout = async () => {
+    const res = await fetch("https://127.0.0.1:5000/logout", {
+      headers: {
+        Authorization: `Token ${sessionStorage.getItem("token")}`
+      }
+    });
+    if (res.ok) {
+      sessionStorage.clear("token");
+      setUser(null);
+    }
+  };
 
   const getUser = async () => {
     const accessToken =
       window.location.search.split("=")[0] === "?api_key"
         ? window.location.search.split("=")[1]
         : null;
-    const res = await fetch("https://127.0.0.1:5000/getuser", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${accessToken || sessionStorage.getItem("token")}`
-      }
-    });
 
-    if (res.ok) {
-      const data = await res.json();
-      sessionStorage.setItem("token", data.token);
-      setUser(data);
+    if (!user) {
+      const res = await fetch("https://127.0.0.1:5000/getuser", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${accessToken ||
+            sessionStorage.getItem("token")}`
+        }
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        sessionStorage.setItem("token", data.token);
+        setUser(data);
+      }
     }
   };
 
+  useEffect(() => {
+    getUser();
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }, []);
+
+  useEffect(() => {
+    setMyPos();
+    if (position)
+      getCurrentAddress({ lat: position.latitude, lng: position.longitude });
+  }, [position]);
+
   return (
     <>
-      <ModalSignOut
-        show={modalSoShow}
-        onHide={() => setModalSoShow(false)}
-        setUser={setUser}
-      />
       <div id="App">
-        <Navibar user={user} setModalSoShow={setModalSoShow} />
         <Switch>
           <Route
+            path="/auth"
+            render={() => <UserAuthentication setUser={setUser} user={user} />}
+          />
+          <Route
             path="/"
-            exact
             render={() => (
-              <Homepage
+              <Main
                 setUser={setUser}
                 user={user}
                 currentCity={currentCity}
+                setCurrentCity={setCurrentCity}
+                searchedCity={searchedCity}
+                setSearchedCity={setSearchedCity}
+                setMyPosition={setMyPosition}
+                logout={() => logout()}
               />
             )}
           />
-          <Route
-            path="/signin"
-            exact
-            render={() => <SignIn setUser={setUser} user={user} />}
-          />
-          <Route
-            path="/event"
-            exact
-            render={() => <EventDisplay setUser={setUser} user={user} />}
-          />
-          <Route path="/signup" exact component={Join} />
-          <Route path="/recover" exact component={Recover} />
-          <Route path="/set-new-pw/:token" component={SetPw} />
-          <Route
-            path="/create-event"
-            exact
-            render={() => <EventCreator setUser={setUser} user={user} />}
-          />
         </Switch>
-        <Foot />
       </div>
     </>
   );
