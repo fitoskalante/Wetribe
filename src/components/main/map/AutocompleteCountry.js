@@ -23,12 +23,15 @@ export default function AutoCompleteCountry(props) {
         language="en"
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <FormGroup>
+          <FormGroup className="w-100 h-100 my-auto mx-0">
             <Form.Control
-              className="w-100"
+              className="w-100 h-100"
               {...getInputProps({ placeholder: "City ..." })}
             />
-            <ListGroup variant="flush">
+            <ListGroup
+              style={{ position: "absolute", zIndex: "999" }}
+              variant="flush"
+            >
               {loading ? <ListGroup.Item>...loading</ListGroup.Item> : null}
               {suggestions.map(suggestion => {
                 return (

@@ -22,7 +22,7 @@ function App() {
   const [searchedCity, setSearchedCity] = useState("");
   const position = usePosition();
   const [myPosition, setMyPosition] = useState("");
-
+  console.log(position, myPosition);
   const getCurrentAddress = async pos => {
     if (!pos.lat && !pos.lng && currentCity !== "") {
       return;
@@ -41,20 +41,12 @@ function App() {
             if (
               gotLocation.address_components.filter(
                 idx => idx.types[0] === "locality"
-              ).length !== 0 &&
-              gotLocation.address_components.filter(
-                idx => idx.types[0] === "administrative_area_level_1"
               ).length !== 0
             ) {
               const getCity = gotLocation.address_components.filter(
                 idx => idx.types[0] === "locality"
               )[0].long_name;
-              const getRegion = gotLocation.address_components.filter(
-                idx => idx.types[0] === "administrative_area_level_1"
-              )[0].short_name;
-              setCurrentCity(getCity + ", " + getRegion);
-
-              return;
+              setCurrentCity(getCity);
             } else if (
               gotLocation.address_components.filter(
                 idx => idx.types[0] === "locality"
@@ -67,15 +59,11 @@ function App() {
                 idx => idx.types[0] === "administrative_area_level_1"
               )[0].long_name;
               setCurrentCity(getCity);
-
-              return;
             } else {
               const getCity = gotLocation.address_components.filter(
                 idx => idx.types[0] === "administrative_area_level_2"
               )[0].long_name;
               setCurrentCity(getCity);
-
-              return;
             }
           } else {
             console.log("no results");
@@ -90,7 +78,7 @@ function App() {
   const setMyPos = () => {
     if (myPosition) {
       setMyPosition(myPosition);
-    } else if (position !== "") {
+    } else if (position.latitude) {
       setMyPosition({ lat: position.latitude, lng: position.longitude });
     }
   };
@@ -114,11 +102,6 @@ function App() {
         : null;
 
     if (!user) {
-      console.log("accessToken", accessToken);
-      console.log(
-        'sessionStorage.getItem("token")',
-        sessionStorage.getItem("token")
-      );
       const res = await fetch(`${process.env.REACT_APP_API_URL}/getuser`, {
         method: "GET",
         headers: {
@@ -143,9 +126,9 @@ function App() {
 
   useEffect(() => {
     setMyPos();
-    if (position)
+    if (position.latitude)
       getCurrentAddress({ lat: position.latitude, lng: position.longitude });
-  }, [position]);
+  }, [position.latitude]);
 
   return (
     <>
@@ -160,6 +143,7 @@ function App() {
             render={() => (
               <Main
                 myPosition={myPosition}
+                position={position}
                 setUser={setUser}
                 user={user}
                 currentCity={currentCity}

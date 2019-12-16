@@ -1,12 +1,14 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Moment from "react-moment";
 
 export default function CardEvent(props) {
   return (
     <Card
-      className="border-0 shadow-sm rounded-lg my-3"
-      style={{ minWidth: "300px" }}
+      className="border-0 shadow-sm rounded-lg my-3 mx-auto mx-md-2 "
+      style={{ minWidth: "300px", maxWidth: "300px" }}
     >
       <Link to={"/event/" + props.event.id}>
         <Card.Img
@@ -28,7 +30,10 @@ export default function CardEvent(props) {
       </Card.Body>
 
       <Card.Footer className="bg-transparent">
-        <small className="text-muted">{props.event.date}</small>
+        <p className="text-black-50 m-0 text-center d-flex justify-content-center align-items-center py-2">
+          <FontAwesomeIcon icon={"calendar-alt"} className="pr-3" size="2x" />{" "}
+          <Moment format="YYYY/MM/DD">{props.event.date}</Moment>
+        </p>
       </Card.Footer>
     </Card>
   );

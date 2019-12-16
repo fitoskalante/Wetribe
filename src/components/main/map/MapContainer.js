@@ -3,7 +3,6 @@ import { usePosition } from "./usePosition";
 import { GoogleMap, withGoogleMap, Marker } from "react-google-maps";
 
 function Map(props) {
-  console.log("markers", props.markers);
   const position = usePosition();
   const loadedPosition = {
     latitude: 0,
@@ -14,22 +13,26 @@ function Map(props) {
     <>
       {!props.pos || props.pos.lat === undefined ? (
         <GoogleMap
-          center={{
-            lat:
-              parseFloat(position.latitude) ||
-              parseFloat(loadedPosition.latitude),
-            lng:
-              parseFloat(position.longitude) ||
-              parseFloat(loadedPosition.longitude)
-          }}
+          center={
+            props.myPosition || {
+              lat:
+                parseFloat(position.latitude) ||
+                parseFloat(loadedPosition.latitude),
+              lng:
+                parseFloat(position.longitude) ||
+                parseFloat(loadedPosition.longitude)
+            }
+          }
           defaultZoom={10}
         >
           <Marker
             getClickable={true}
-            position={{
-              lat: parseFloat(position.latitude),
-              lng: parseFloat(position.longitude)
-            }}
+            position={
+              props.myPosition || {
+                lat: parseFloat(position.latitude),
+                lng: parseFloat(position.longitude)
+              }
+            }
             error={position.error}
           />
           {props.markers &&

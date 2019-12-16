@@ -16,7 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Route, useHistory } from "react-router-dom";
 import EventDisplay from "./EventDisplay";
 
-export default function EventCreator() {
+export default function EventCreator(props) {
   const { register, handleSubmit } = useForm();
   const [pos, setPos] = useState("");
   const [address, setAddress] = useState("");
@@ -166,6 +166,7 @@ export default function EventCreator() {
                   <div className="w-100 py-1">
                     <WrappedMap
                       pos={pos}
+                      myPosition={props.myPosition}
                       setPos={setPos}
                       googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}&language=en`}
                       loadingElement={<div />}

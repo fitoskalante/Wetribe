@@ -47,7 +47,12 @@ export default function ModalSignOut(props) {
           path="/create-event"
           exact
           render={() => (
-            <EventCreator setUser={props.setUser} user={props.user} />
+            <EventCreator
+              setUser={props.setUser}
+              user={props.user}
+              position={props.position}
+              myPosition={props.myPosition}
+            />
           )}
         />
         <Route

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { CardDeck, Card } from "react-bootstrap";
+import { CardDeck, Card, Image, Button } from "react-bootstrap";
 import EventList from "./homepage/EventList";
 import HeaderHome from "./homepage/HeaderHome";
 import AutoCompleteCountry from "./map/AutocompleteCountry";
 import { WrappedMap } from "../main/map/MapContainer";
+import EnvProt from "../../img/cat1.png";
+import Recy from "../../img/cat2.png";
+import Volun from "../../img/cat3.png";
+import Edu from "../../img/cat4.png";
 
 export default function Homepage(props) {
   const [citySelected, setCitySelected] = useState(false);
@@ -33,24 +37,34 @@ export default function Homepage(props) {
     get_events_by_location(props.searchedCity);
   }, [citySelected]);
 
-  // useEffect(() => {
-  //   get_events_by_location(props.currentCity);
-  // }, [props.currentCity]);
+  useEffect(() => {
+    if (props.currentCity) {
+      get_events_by_location(props.currentCity);
+    }
+  }, [props.currentCity]);
 
   return (
     <>
       <HeaderHome user={props.user} />
-      <div className="container-fluid bg-light p-5">
-        <div className="container rounded-custom shadow p-5 bg-white text-center">
-          <h3>Find Tribes Wherever You Are</h3>
-          <AutoCompleteCountry
-            setCitySelected={setCitySelected}
-            setCurrentCity={props.setCurrentCity}
-            currentCity={props.currentCity}
-            searchedCity={props.searchedCity}
-            setSearchedCity={props.setSearchedCity}
-            setMyPosition={props.setMyPosition}
-          />
+      <div className="container-fluid bg-white">
+        <div className="container text-center">
+          <h1 className="py-2 py-md-5  text-info">
+            {props.searchedCity || props.currentCity}
+          </h1>
+          <div className="container-fluid m-0 d-flex flex-column flex-md-row col-md-7  align-items-center justify-content-center mx-auto py-3">
+            <h4 className="col-12 col-md-6 m-0 h-100 py-3 ">
+              Search Tribes by City
+            </h4>
+            <AutoCompleteCountry
+              setCitySelected={setCitySelected}
+              setCurrentCity={props.setCurrentCity}
+              currentCity={props.currentCity}
+              searchedCity={props.searchedCity}
+              setSearchedCity={props.setSearchedCity}
+              setMyPosition={props.setMyPosition}
+              className="col-12 col-md-6 m-0 h-100 p-0"
+            />
+          </div>
           <div className="w-100">
             <WrappedMap
               markers={markers}
@@ -63,6 +77,34 @@ export default function Homepage(props) {
                 <div style={{ height: "250px" }} className="rounded-custom" />
               }
             />
+          </div>
+          <div className="d-flex flex-wrap justify-content-around w-100 py-3">
+            <div className="d-flex flex-column align-items-center">
+              {" "}
+              <Image width={150} height={150} src={EnvProt} alt="categ pic" />
+              <Button variant="info" className="rounded-pill font-weight-bold">
+                Environment Protection
+              </Button>
+            </div>
+            <div className="d-flex flex-column align-items-center">
+              <Image width={150} height={150} src={Recy} alt="categ pic" />
+              <Button variant="info" className="rounded-pill font-weight-bold">
+                Recycling
+              </Button>
+            </div>
+            <div className="d-flex flex-column align-items-center">
+              <Image width={150} height={150} src={Volun} alt="categ pic" />
+              <Button variant="info" className="rounded-pill font-weight-bold">
+                Volunteering
+              </Button>
+            </div>
+            <div className="d-flex flex-column align-items-center">
+              <Image width={150} height={150} src={Edu} alt="categ pic" />
+
+              <Button variant="info" className="rounded-pill font-weight-bold">
+                Education
+              </Button>
+            </div>
           </div>
         </div>
       </div>
