@@ -1,68 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Project Brief: `Wetribe: Connect people interested in making the world better`
 
-## Available Scripts
+Wetribe is a mobile friendly web app that connect people interested in taking actions to make their environment a better place.
 
-In the project directory, you can run:
 
-### `yarn start`
+### Motivations + Problems
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+*Why is this project useful? Why were you interested in working on it? What hair-on-fire problems do you see?*
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+I got the Idea of Wetribe based in my own experiences travelling and seeing the impact that our lifestyle makes in our environment.
 
-### `yarn test`
+The problem with polution, poverty and inequity is so big that normally we feel that it is impossible to make a change. This project is based in the idea of strength through unity, and that if we work toguether we can contribute to a better world.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The App base the content in Geolocation, making easy to create a community or find groups of people wherever you are. The idea is to find relevant events as quick as possible, join and start doing.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Key Features and Technical Implementation Plan
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+* Geolocation. It is important to find communities relevant to the user location so they can take an action. Also when the user creates a community they can set the location of the event with the help of Google Places Autocomplete making it accurate.
+    * Use of Google Map Api for searching events
+    * Use of React Places Autocomplete to accurately set the address of the events preventing from misstyping.
+    * Use of Map to make easy and clear finding events.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* Mobile Friendly.
+  * Use of Bootstrap 4 to make it responsive in all kind of screens
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Filtering / Searching
+    * React + API hooks for filtering/searching a list of events by categories, date and location. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* Comments. Supporting the idea of community.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Landing Page
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Check out the landing page at this link: https://friendly-dubinsky-e43212.netlify.com/
