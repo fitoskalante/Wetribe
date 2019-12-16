@@ -167,7 +167,7 @@ export default function EventCreator() {
                     <WrappedMap
                       pos={pos}
                       setPos={setPos}
-                      googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+                      googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}&language=en`}
                       loadingElement={<div />}
                       containerElement={<div />}
                       mapElement={<div style={{ height: "250px" }} />}
