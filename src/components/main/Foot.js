@@ -1,5 +1,6 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Foot() {
@@ -83,9 +84,9 @@ export default function Foot() {
             <Nav.Link className="foot-link">
               <small>Terms of Service</small>
             </Nav.Link>
-            <Nav.Link className="foot-link">
+            <Link to="/privacy" className="nav-link foot-link">
               <small>Privacy Policy</small>
-            </Nav.Link>
+            </Link>
             <Nav.Link className="foot-link">
               <small>Cookie Policy</small>
             </Nav.Link>
