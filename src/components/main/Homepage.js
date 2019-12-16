@@ -1,23 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CardDeck, Card } from "react-bootstrap";
 import EventList from "./homepage/EventList";
 import HeaderHome from "./homepage/HeaderHome";
 import AutoCompleteCountry from "./map/AutocompleteCountry";
+import { WrappedMap } from "../main/map/MapContainer";
 
 export default function Homepage(props) {
+  const [citySelected, setCitySelected] = useState(false);
+  const [markers, setMarkers] = useState(null);
+  const get_events_by_location = async city => {
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/geteventslocation`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(city)
+      }
+    );
+    if (res.ok) {
+      const gotEvents = await res.json();
+      console.log(gotEvents.events);
+      setMarkers(gotEvents.events);
+      setCitySelected(false);
+    } else {
+      console.log("get events failed");
+    }
+  };
+
+  useEffect(() => {
+    get_events_by_location(props.searchedCity);
+  }, [citySelected]);
+
+  // useEffect(() => {
+  //   get_events_by_location(props.currentCity);
+  // }, [props.currentCity]);
+
   return (
     <>
-      <HeaderHome />
+      <HeaderHome user={props.user} />
       <div className="container-fluid bg-light p-5">
         <div className="container rounded-custom shadow p-5 bg-white text-center">
           <h3>Find Tribes Wherever You Are</h3>
           <AutoCompleteCountry
+            setCitySelected={setCitySelected}
             setCurrentCity={props.setCurrentCity}
             currentCity={props.currentCity}
             searchedCity={props.searchedCity}
             setSearchedCity={props.setSearchedCity}
             setMyPosition={props.setMyPosition}
           />
+          <div className="w-100">
+            <WrappedMap
+              markers={markers}
+              pos={props.myPosition}
+              setPos={props.setPos}
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+              loadingElement={<div />}
+              containerElement={<div />}
+              mapElement={
+                <div style={{ height: "250px" }} className="rounded-custom" />
+              }
+            />
+          </div>
         </div>
       </div>
       <EventList

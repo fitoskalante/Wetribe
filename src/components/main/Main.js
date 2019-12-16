@@ -7,6 +7,7 @@ import EventCreator from "./tribes/EventCreator";
 import EditEventInfo from "./tribes/EditEventInfo";
 import Profile from "./user/Profile";
 import Activity from "./user/Activity";
+import Privacy from "./homepage/Privacy";
 import Foot from "./Foot";
 
 export default function ModalSignOut(props) {
@@ -26,6 +27,7 @@ export default function ModalSignOut(props) {
               setCurrentCity={props.setCurrentCity}
               searchedCity={props.searchedCity}
               setSearchedCity={props.setSearchedCity}
+              myPosition={props.myPosition}
               setMyPosition={props.setMyPosition}
             />
           )}
@@ -35,6 +37,7 @@ export default function ModalSignOut(props) {
           exact
           render={() => <EditEventInfo user={props.user} />}
         />
+        <Route path="/privacy" exact render={() => <Privacy />} />
         <Route
           path={`/event/:id`}
           exact

@@ -19,39 +19,34 @@ export default function AutoCompletePlaces(props) {
         try {
           const gotLocation = await res.json();
           if (gotLocation.address_components) {
-            const getCountry = gotLocation.address_components.filter(
-              idx => idx.types[0] === "country"
-            )[0].long_name;
+            const gac = gotLocation.address_components;
+            const getCountry = gac.filter(idx => idx.types[0] === "country")[0]
+              .long_name;
 
             if (
-              gotLocation.address_components.filter(
-                idx => idx.types[0] === "locality"
-              ).length !== 0 &&
-              gotLocation.address_components.filter(
-                idx => idx.types[0] === "administrative_area_level_1"
-              ).length !== 0
+              gac.filter(idx => idx.types[0] === "locality").length !== 0
+              // &&
+              // gac.filter(idx => idx.types[0] === "administrative_area_level_1")
+              //   .length !== 0
             ) {
-              const getCity = gotLocation.address_components.filter(
-                idx => idx.types[0] === "locality"
-              )[0].long_name;
-              const getRegion = gotLocation.address_components.filter(
-                idx => idx.types[0] === "administrative_area_level_1"
-              )[0].short_name;
-              props.setCity(getCity + ", " + getRegion);
+              const getCity = gac.filter(idx => idx.types[0] === "locality")[0]
+                .long_name;
+              // const getRegion = gac.filter(
+              //   idx => idx.types[0] === "administrative_area_level_1"
+              // )[0].short_name;
+              // props.setCity(getCity + ", " + getRegion);
+              props.setCity(getCity);
             } else if (
-              gotLocation.address_components.filter(
-                idx => idx.types[0] === "locality"
-              ).length === 0 &&
-              gotLocation.address_components.filter(
-                idx => idx.types[0] === "administrative_area_level_1"
-              ).length !== 0
+              gac.filter(idx => idx.types[0] === "locality").length === 0 &&
+              gac.filter(idx => idx.types[0] === "administrative_area_level_1")
+                .length !== 0
             ) {
-              const getCity = gotLocation.address_components.filter(
+              const getCity = gac.filter(
                 idx => idx.types[0] === "administrative_area_level_1"
               )[0].long_name;
               props.setCity(getCity);
             } else {
-              const getCity = gotLocation.address_components.filter(
+              const getCity = gac.filter(
                 idx => idx.types[0] === "administrative_area_level_2"
               )[0].long_name;
               props.setCity(getCity);
@@ -82,6 +77,7 @@ export default function AutoCompletePlaces(props) {
         value={props.address}
         onChange={props.setAddress}
         onSelect={handleSelect}
+        language="en-GB"
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <FormGroup>

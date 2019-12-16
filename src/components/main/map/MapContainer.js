@@ -3,16 +3,16 @@ import { usePosition } from "./usePosition";
 import { GoogleMap, withGoogleMap, Marker } from "react-google-maps";
 
 function Map(props) {
+  console.log("markers", props.markers);
   const position = usePosition();
   const loadedPosition = {
     latitude: 0,
     longitude: 0,
     error: "not loaded"
   };
-
   return (
     <>
-      {!props.pos ? (
+      {!props.pos || props.pos.lat === undefined ? (
         <GoogleMap
           center={{
             lat:
@@ -32,24 +32,44 @@ function Map(props) {
             }}
             error={position.error}
           />
+          {props.markers &&
+            props.markers.map(marker => {
+              return (
+                <Marker
+                  key={marker.id}
+                  getClickable={true}
+                  position={marker.position}
+                />
+              );
+            })}
         </GoogleMap>
       ) : (
         <GoogleMap
           center={{
-            lat: parseFloat(props.pos.lat),
-            lng: parseFloat(props.pos.lng)
+            lat: props.pos.lat,
+            lng: props.pos.lng
           }}
-          defaultZoom={15}
+          defaultZoom={16}
         >
           <Marker
             draggable={true}
             getClickable={true}
             position={{
-              lat: parseFloat(props.pos.lat),
-              lng: parseFloat(props.pos.lng)
+              lat: props.pos.lat,
+              lng: props.pos.lng
             }}
             error={position.error}
           />
+          {props.markers &&
+            props.markers.map(marker => {
+              return (
+                <Marker
+                  key={marker.id}
+                  getClickable={true}
+                  position={marker.position}
+                />
+              );
+            })}
         </GoogleMap>
       )}
     </>

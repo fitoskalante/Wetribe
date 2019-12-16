@@ -53,6 +53,8 @@ function App() {
                 idx => idx.types[0] === "administrative_area_level_1"
               )[0].short_name;
               setCurrentCity(getCity + ", " + getRegion);
+
+              return;
             } else if (
               gotLocation.address_components.filter(
                 idx => idx.types[0] === "locality"
@@ -65,13 +67,16 @@ function App() {
                 idx => idx.types[0] === "administrative_area_level_1"
               )[0].long_name;
               setCurrentCity(getCity);
+
+              return;
             } else {
               const getCity = gotLocation.address_components.filter(
                 idx => idx.types[0] === "administrative_area_level_2"
               )[0].long_name;
               setCurrentCity(getCity);
+
+              return;
             }
-            return;
           } else {
             console.log("no results");
           }
@@ -154,6 +159,7 @@ function App() {
             path="/"
             render={() => (
               <Main
+                myPosition={myPosition}
                 setUser={setUser}
                 user={user}
                 currentCity={currentCity}
