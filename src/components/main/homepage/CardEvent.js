@@ -19,7 +19,7 @@ export default function CardEvent(props) {
         <Card.Title>{props.event.title}</Card.Title>
         <div className="d-flex flex-row container w-100 justify-content-center">
           <Link
-            className="btn btn-outline-success rounded-pill col-4 mr-2"
+            className="btn btn-outline-success rounded-pill col-6 mr-2 "
             to={"/event/" + props.event.id}
           >
             See Event

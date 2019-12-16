@@ -8,8 +8,9 @@ export default function Homepage(props) {
   return (
     <>
       <HeaderHome />
-      <div className="container-fluid bg-warning p-5">
-        <div className="container rounded-custom p-5 bg-white">
+      <div className="container-fluid bg-light p-5">
+        <div className="container rounded-custom shadow p-5 bg-white text-center">
+          <h3>Find Tribes Wherever You Are</h3>
           <AutoCompleteCountry
             setCurrentCity={props.setCurrentCity}
             currentCity={props.currentCity}

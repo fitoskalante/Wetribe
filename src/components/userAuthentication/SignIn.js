@@ -3,6 +3,8 @@ import { Form, Button } from "react-bootstrap";
 import useForm from "react-hook-form";
 import { Redirect, Link } from "react-router-dom";
 import logo from "../../img/logo-black.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default function SignIn(props) {
   const { register, handleSubmit } = useForm();
 
@@ -34,18 +36,21 @@ export default function SignIn(props) {
   return (
     <>
       <div className=" d-flex flex-row justify-content-center align-items-center vh-100 my-red">
-        <div className="container col-12 col-sm-8 col-md-6 col-lg-4 bg-light p-5 rounded-custom text-center">
+        <div className="container col-11 col-sm-8 col-md-6 col-lg-4 bg-light p-5 rounded-custom text-center">
           <Link to="/">
             <img
               alt="logo"
               src={logo}
-              width="150"
+              width="100"
               className="d-inline-block align-top "
             />
           </Link>
-          <h3>Sign In</h3>
+          <h3 className="border-top mt-3 pt-3">Sign In</h3>
 
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form
+            onSubmit={handleSubmit(onSubmit)}
+            className="border-bottom mb-3"
+          >
             <Form.Control
               className="my-3"
               type="email"
@@ -63,20 +68,32 @@ export default function SignIn(props) {
               <Button variant="success" className="my-3" type="submit">
                 Sign In
               </Button>
-              <Button variant="outline-success" className="my-3" type="submit">
-                Sign Up
-              </Button>
-              <a href={`${process.env.REACT_APP_API_URL}/login/facebook`}>
-                LOG IN WITH FB
-              </a>
+              <Link to="/auth/signup">
+                <Button variant="outline-primary w-100" className="mb-3">
+                  Sign Up
+                </Button>
+              </Link>
+              <p>
+                <small>
+                  Forgot your password?{" "}
+                  <Link className="menu-item" to="/auth/recover">
+                    Click here!
+                  </Link>
+                </small>
+              </p>
             </div>
           </Form>
-          <a className="menu-item" href="/recover">
-            Forgot your password?
-          </a>
-          <a className="menu-item" href="/signup">
-            Sign Up
-          </a>
+          <Button
+            className="w-100"
+            href={`${process.env.REACT_APP_API_URL}/login/facebook`}
+          >
+            <FontAwesomeIcon
+              icon={["fab", "facebook-square"]}
+              size="lg"
+              className="mr-3"
+            />
+            LOGIN WITH FB
+          </Button>
         </div>
       </div>
     </>

@@ -4,9 +4,13 @@ import Navibar from "./Navibar";
 import Homepage from "./Homepage";
 import EventDisplay from "./tribes/EventDisplay";
 import EventCreator from "./tribes/EventCreator";
+import EditEventInfo from "./tribes/EditEventInfo";
+import Profile from "./user/Profile";
+import Activity from "./user/Activity";
 import Foot from "./Foot";
 
 export default function ModalSignOut(props) {
+  console.log(props.user);
   return (
     <>
       <Navibar user={props.user} logout={props.logout} />
@@ -27,6 +31,11 @@ export default function ModalSignOut(props) {
           )}
         />
         <Route
+          path={`/edit-event/:id`}
+          exact
+          render={() => <EditEventInfo user={props.user} />}
+        />
+        <Route
           path={`/event/:id`}
           exact
           render={() => <EventDisplay user={props.user} />}
@@ -37,6 +46,16 @@ export default function ModalSignOut(props) {
           render={() => (
             <EventCreator setUser={props.setUser} user={props.user} />
           )}
+        />
+        <Route
+          path={`/profile`}
+          exact
+          render={() => <Profile user={props.user} />}
+        />
+        <Route
+          path="/activity"
+          exact
+          render={() => <Activity user={props.user} />}
         />
       </Switch>
       <Foot />

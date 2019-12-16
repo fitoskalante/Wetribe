@@ -19,10 +19,6 @@ export default function AutoCompleteCountry(props) {
         try {
           const gotLocation = await res.json();
           if (gotLocation.address_components) {
-            const getCountry = gotLocation.address_components.filter(
-              idx => idx.types[0] === "country"
-            )[0].long_name;
-
             if (
               gotLocation.address_components.filter(
                 idx => idx.types[0] === "locality"
@@ -56,8 +52,6 @@ export default function AutoCompleteCountry(props) {
               )[0].long_name;
               props.setSearchedCity(getCity);
             }
-            props.setCountry(getCountry);
-            props.setAddress(gotLocation.formatted_address);
             return;
           } else {
             alert("no results");
@@ -70,8 +64,9 @@ export default function AutoCompleteCountry(props) {
   };
 
   const handleSelect = async value => {
-    console.log(value);
+    console.log("value", value);
     const results = await geocodeByAddress(value);
+    console.log("results", results);
     const latLng = await getLatLng(results[0]);
     getAddress(latLng);
     props.setMyPosition(latLng);
@@ -87,10 +82,9 @@ export default function AutoCompleteCountry(props) {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <FormGroup>
-            <Form.Label>Set the address</Form.Label>
             <Form.Control
               className="w-100"
-              {...getInputProps({ placeholder: "Type address" })}
+              {...getInputProps({ placeholder: "City ..." })}
             />
             <ListGroup variant="flush">
               {loading ? <ListGroup.Item>...loading</ListGroup.Item> : null}

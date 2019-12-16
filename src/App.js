@@ -9,21 +9,12 @@ import {
   faCheckSquare,
   faMapMarkerAlt,
   faUsers,
-  faCalendarAlt
+  faCalendarAlt,
+  faEdit
 } from "@fortawesome/free-solid-svg-icons";
 import { usePosition } from "./components/main/map/usePosition";
 
-console.log("process.env.REACT_APP_API_URL", process.env.REACT_APP_API_URL);
-console.log(
-  "process.env.REACT_APP_GEOCODING_KEY",
-  process.env.REACT_APP_GEOCODING_KEY
-);
-console.log(
-  "process.env.REACT_APP_GOOGLE_KEY",
-  process.env.REACT_APP_GOOGLE_KEY
-);
-
-library.add(fab, faCheckSquare, faMapMarkerAlt, faUsers, faCalendarAlt);
+library.add(fab, faCheckSquare, faMapMarkerAlt, faUsers, faCalendarAlt, faEdit);
 
 function App() {
   const [user, setUser] = useState(null);

@@ -1,7 +1,8 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import logo from "../../img/logo-white.png";
 import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 
 export default function Navibar(props) {
   return (
@@ -33,17 +34,32 @@ export default function Navibar(props) {
                   Sign in
                 </Link>
                 <Link to="/auth/signup" className=" nav-link">
-                  Join
+                  Sign Up
                 </Link>
               </>
             ) : (
               <>
-                <Link to="/" className="pl-lg-5 nav-link">
-                  My Profile
-                </Link>
-                <Nav.Link className="nav-link" onClick={props.logout}>
-                  Sign Out
-                </Nav.Link>
+                <NavDropdown
+                  className="pl-lg-5"
+                  title={props.user.name || "My Account"}
+                  id="basic-nav-dropdown"
+                >
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/activity">
+                    <NavDropdown.Item>Activity</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Divider />
+
+                  <NavDropdown.Item
+                    className="link-dropdown font-weight-bold"
+                    onClick={props.logout}
+                  >
+                    Sign Out
+                  </NavDropdown.Item>
+                </NavDropdown>
               </>
             )}
           </Nav>

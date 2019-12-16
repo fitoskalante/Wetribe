@@ -1,29 +1,33 @@
 import React from "react";
-import illustration from "../../../img/illustration.png";
+import illustration from "../../../img/headerpic.png";
+import { Jumbotron, Container, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function HeaderHome() {
   return (
     <>
-      <div
-        className="container-fluid d-flex flex-column flex-md-row justify-content-center align-items-center text-dark"
-        id="header-home"
+      <Jumbotron
+        fluid
+        className="bg-white m-0"
+        style={{
+          backgroundImage: `url(${illustration})`,
+          backgroundSize: "cover"
+        }}
       >
-        <img
-          className="col-xs-12 col-md-5"
-          src={illustration}
-          alt="ilustration homepage"
-        />
-        <div className="text-center">
-          <h3 className="display-4">Small steps</h3>
-          <h1 className="display-1">Big Changes</h1>
-          <button
-            type="button"
-            className="btn btn-success btn-lg rounded-pill my-5 w-75"
-          >
-            Join
-          </button>
-        </div>
-      </div>
+        <Container className="text-center">
+          <h3 className="display-4 font-weight-bold text-white header-text">
+            small steps make
+          </h3>
+          <h1 className="display-4 font-weight-bold text-white header-text">
+            BIG CHANGES
+          </h1>
+          <Link to="/auth/signup">
+            <Button className="btn btn-primary shadow btn-lg rounded-pill my-5 col-8 col-sm-3">
+              Join
+            </Button>
+          </Link>
+        </Container>
+      </Jumbotron>
     </>
   );
 }

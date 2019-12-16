@@ -76,3 +76,13 @@ html, body {
 .my-red {
   background-color: #e34172 !important;
 }
+
+@media only screen and (min-width: 991px) {
+  .dropdown-menu {
+    margin-left: 54px !important;
+  }
+}
+
+.header-text {
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
