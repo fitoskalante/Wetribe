@@ -11,7 +11,8 @@ export default function AutoCompletePlaces({
   onSubmit,
   register,
   handleSubmit,
-  myEvent
+  myEvent,
+  joined
 }) {
   const history = useHistory();
   const params = useParams();
@@ -62,7 +63,7 @@ export default function AutoCompletePlaces({
           ) : (
             <>
               {" "}
-              {e.attending ? (
+              {joined ? (
                 <Button
                   style={{ width: "100px" }}
                   onClick={() => leaveEvent(e.event.id)}

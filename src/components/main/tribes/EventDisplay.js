@@ -74,7 +74,7 @@ export default function EventDisplay(props) {
     });
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
+      console.log("leaving", data);
       setJoined(data.joined);
     } else {
       console.log("error leaving event");
@@ -100,14 +100,14 @@ export default function EventDisplay(props) {
 
   useEffect(() => {
     getEventInfo();
-  }, []);
+  }, [joined]);
 
   return (
     <>
       <ModalSignIn
         show={modalSignInShow}
         onHide={() => setModalSignInShow(false)}
-        onClick={() => history.push("/signin")}
+        onClick={() => history.push("/auth/signin")}
       />
 
       <div className="container-fluid">

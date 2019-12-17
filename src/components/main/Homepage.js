@@ -48,7 +48,7 @@ export default function Homepage(props) {
       <HeaderHome user={props.user} />
       <div className="container-fluid bg-white">
         <div className="container text-center">
-          <h1 className="py-2 py-md-5  text-info">
+          <h1 className="py-2 pt-md-5  text-info">
             {props.searchedCity || props.currentCity}
           </h1>
           <div className="container-fluid m-0 d-flex flex-column flex-md-row col-md-7  align-items-center justify-content-center mx-auto py-3">

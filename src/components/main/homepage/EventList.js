@@ -19,7 +19,7 @@ export default function EventList(props) {
     <>
       <div className="container-fluid py-5 bg-light">
         <div className="container text-center">
-          <CardDeck>
+          <CardDeck className="">
             {list ? (
               list.map(event => <CardEvent event={event} key={event.id} />)
             ) : (

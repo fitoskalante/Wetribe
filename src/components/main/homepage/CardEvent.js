@@ -8,7 +8,7 @@ export default function CardEvent(props) {
   return (
     <Card
       className="border-0 shadow-sm rounded-lg my-3 mx-auto mx-md-2 "
-      style={{ minWidth: "300px", maxWidth: "300px" }}
+      style={{ minWidth: "300px", maxWidth: "350px" }}
     >
       <Link to={"/event/" + props.event.id}>
         <Card.Img
