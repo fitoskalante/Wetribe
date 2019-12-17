@@ -10,7 +10,8 @@ export default function AutoCompleteCountry(props) {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
     props.setMyPosition(latLng);
-    props.setSearchedCity(results[0].formatted_address);
+    props.setSearchedCity(results[0].address_components[1].long_name);
+    console.log("yayayayyaa", results[0].address_components[1].long_name);
     props.setCitySelected(true);
   };
 

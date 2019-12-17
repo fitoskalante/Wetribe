@@ -18,9 +18,10 @@ export default function AutoCompletePlaces(props) {
       if (res.ok) {
         try {
           const gotLocation = await res.json();
-          console.log("location", gotLocation);
+
           if (gotLocation.address_components) {
             const gac = gotLocation.address_components;
+            console.log("response autocomplkete", gac);
             const getCountry = gac.filter(idx => idx.types[0] === "country")[0]
               .long_name;
 

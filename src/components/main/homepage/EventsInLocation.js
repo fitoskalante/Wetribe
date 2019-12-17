@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CardDeck, Spinner } from "react-bootstrap";
 import CardEvent from "./CardEvent";
 

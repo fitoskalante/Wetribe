@@ -112,17 +112,11 @@ export default function Homepage(props) {
         </div>
       </div>
       {list ? (
-        <EventsInLocation
-          list={list}
-          currentCity={props.currentCity}
-          searchedCity={props.searchedCity}
-          markers={props.markers}
-        />
+        <EventsInLocation list={list} />
       ) : (
         <EventList
           currentCity={props.currentCity}
           searchedCity={props.searchedCity}
-          markers={props.markers}
         />
       )}
 

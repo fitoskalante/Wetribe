@@ -11,7 +11,6 @@ import Privacy from "./homepage/Privacy";
 import Foot from "./Foot";
 
 export default function ModalSignOut(props) {
-  console.log(props.user);
   return (
     <>
       <Navibar user={props.user} logout={props.logout} />
