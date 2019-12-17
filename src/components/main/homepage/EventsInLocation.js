@@ -2,26 +2,16 @@ import React, { useEffect, useState } from "react";
 import { CardDeck, Spinner } from "react-bootstrap";
 import CardEvent from "./CardEvent";
 
-export default function EventList() {
-  const [list, setList] = useState(null);
-
-  const getEventList = async () => {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/geteventlist`);
-    const data = await res.json();
-    setList(data);
-  };
-
-  useEffect(() => {
-    getEventList();
-  }, []);
-
+export default function EventList(props) {
   return (
     <>
       <div className="container-fluid py-5 bg-light">
         <div className="container text-center">
           <CardDeck className="">
-            {list ? (
-              list.map(event => <CardEvent event={event} key={event.id} />)
+            {props.list ? (
+              props.list.map(event => (
+                <CardEvent event={event} key={event.id} />
+              ))
             ) : (
               <>
                 <Spinner animation="border" role="status" variant="success">

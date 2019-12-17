@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CardDeck, Card, Image, Button } from "react-bootstrap";
 import EventList from "./homepage/EventList";
+import EventsInLocation from "./homepage/EventsInLocation";
 import HeaderHome from "./homepage/HeaderHome";
 import AutoCompleteCountry from "./map/AutocompleteCountry";
 import { WrappedMap } from "../main/map/MapContainer";
@@ -10,8 +11,9 @@ import Volun from "../../img/cat3.png";
 import Edu from "../../img/cat4.png";
 
 export default function Homepage(props) {
+  const [list, setList] = useState(null);
   const [citySelected, setCitySelected] = useState(false);
-  const [markers, setMarkers] = useState(null);
+  const [markers, setMarkers] = useState([]);
   const get_events_by_location = async city => {
     const res = await fetch(
       `${process.env.REACT_APP_API_URL}/geteventslocation`,
@@ -27,6 +29,7 @@ export default function Homepage(props) {
       const gotEvents = await res.json();
       console.log(gotEvents.events);
       setMarkers(gotEvents.events);
+      setList(gotEvents.events);
       setCitySelected(false);
     } else {
       console.log("get events failed");
@@ -108,10 +111,20 @@ export default function Homepage(props) {
           </div>
         </div>
       </div>
-      <EventList
-        currentCity={props.currentCity}
-        searchedCity={props.searchedCity}
-      />
+      {list ? (
+        <EventsInLocation
+          list={list}
+          currentCity={props.currentCity}
+          searchedCity={props.searchedCity}
+          markers={props.markers}
+        />
+      ) : (
+        <EventList
+          currentCity={props.currentCity}
+          searchedCity={props.searchedCity}
+          markers={props.markers}
+        />
+      )}
 
       <div className="container py-5 bg-white rounded-custom">
         <div className="container text-center">
