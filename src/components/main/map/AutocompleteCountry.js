@@ -11,7 +11,6 @@ export default function AutoCompleteCountry(props) {
     const latLng = await getLatLng(results[0]);
     props.setMyPosition(latLng);
     props.setSearchedCity(results[0].address_components[1].long_name);
-    console.log("yayayayyaa", results[0].address_components[1].long_name);
     props.setCitySelected(true);
   };
 

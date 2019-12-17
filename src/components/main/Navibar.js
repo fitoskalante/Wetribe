@@ -22,12 +22,14 @@ export default function Navibar(props) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             {" "}
-            <Link
-              to="/create-event"
-              className="navlink-one-side-border pr-5 text-white nav-link"
-            >
-              Create a Tribe
-            </Link>
+            {props.user && (
+              <Link
+                to="/create-event"
+                className="navlink-one-side-border pr-5 text-white nav-link"
+              >
+                Create a Tribe
+              </Link>
+            )}
             {!props.user ? (
               <>
                 <Link to="/auth/signin" className="pl-lg-5 nav-link">
