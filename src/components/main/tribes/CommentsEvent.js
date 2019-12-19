@@ -97,7 +97,7 @@ export default function AutoCompletePlaces({
                 <Form.Label>Stay Connected</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="comment"
+                  placeholder="Leave your comment here"
                   className="rounded-lg"
                   as="textarea"
                   rows="3"

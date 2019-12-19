@@ -9,7 +9,7 @@ import CommentsEvent from "./CommentsEvent";
 import { Link } from "react-router-dom";
 
 export default function EventDisplay(props) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [modalSignInShow, setModalSignInShow] = useState(false);
   const history = useHistory();
   const params = useParams();
@@ -17,9 +17,10 @@ export default function EventDisplay(props) {
   const [joined, setJoined] = useState(false);
   const [myEvent, setMyEvent] = useState(false);
 
-  const onSubmit = data => {
+  const onSubmit = (data, ev) => {
     const id = e.event.id;
     comment({ ...data, id });
+    ev.target.reset();
   };
 
   const comment = async data => {
