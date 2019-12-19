@@ -102,7 +102,7 @@ export default function EditEventInfo() {
 
   if (!e)
     return (
-      <div className="d-flex vh-100 justify-content-center align-items-center">
+      <div className="d-flex vh-100 justify-content-center align-items-center bg-light">
         <Spinner animation="border" role="status" variant="success">
           <span className="sr-only">Loading...</span>
         </Spinner>
@@ -110,9 +110,9 @@ export default function EditEventInfo() {
     );
   return (
     <>
-      <div className="container-fluid text-center">
+      <div className="container-fluid text-center pb-5 bg-light">
         <h3 className="py-5">Edit your Tribe</h3>
-        <div className="container d-flex flex-column  mb-5 col-12 col-sm-10 col-md-7">
+        <div className="container d-flex flex-column  col-12 col-sm-10 col-md-7">
           <div>
             <Card className="border-0">
               <Card.Body className="rounded-custom shadow">

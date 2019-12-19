@@ -50,7 +50,7 @@ export default function Homepage(props) {
     <>
       <HeaderHome user={props.user} />
       <div className="container-fluid bg-white">
-        <div className="container text-center">
+        <div className="container text-center bg-light">
           <h1 className="py-2 pt-md-5  text-info font-weight-bold">
             {props.searchedCity || props.currentCity || "No City Found"}
           </h1>
@@ -130,12 +130,14 @@ export default function Homepage(props) {
       {list ? (
         <EventsInLocation list={list} />
       ) : (
-        <div className="container my-3 py-3 bg-light text-center rounded-custom">
-          <h5>No Events For This Location</h5>
+        <div className="container-fluid m-0 py-3 bg-white">
+          <div className="container py-3 bg-light text-center rounded-custom">
+            <h5>No Events For This Location</h5>
+          </div>
         </div>
       )}
 
-      <div className="container py-5 bg-white rounded-custom">
+      <div className="container-fluid py-5 bg-white">
         <div className="container text-center">
           <h1 className="py-3">Find the right Tribe for you</h1>
           <CardDeck>

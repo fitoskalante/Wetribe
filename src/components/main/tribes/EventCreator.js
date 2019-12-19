@@ -104,7 +104,7 @@ export default function EventCreator(props) {
     return <Route path="/event" render={() => <EventDisplay data={data} />} />;
   return (
     <>
-      <div className="container-fluid text-center">
+      <div className="container-fluid text-center bg-light pb-5">
         <h3 className="py-5">Create a Tribe</h3>
         <div className="container d-flex flex-column  mb-5 col-12 col-sm-10 col-md-7">
           <div>

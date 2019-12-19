@@ -114,7 +114,7 @@ export default function EventDisplay(props) {
         onClick={() => history.push("/auth/signin")}
       />
 
-      <div className="container-fluid">
+      <div className="container-fluid bg-white">
         {!e.event.lat ? (
           <div className="d-flex vh-100 justify-content-center align-items-center">
             <Spinner animation="border" role="status" variant="success">

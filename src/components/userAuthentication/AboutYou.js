@@ -43,7 +43,7 @@ export default function AboutYou(props) {
   return (
     <>
       <div className=" d-flex flex-row justify-content-center align-items-center  my-red">
-        <div className="container col-11 col-sm-10 col-md-8 col-lg-6 bg-light p-5 my-5 rounded-custom text-center">
+        <div className="container col-11 col-sm-10 col-md-8 col-lg-7 bg-light p-5 my-5 rounded-custom text-center">
           <Link to="/">
             <img
               alt="logo"
