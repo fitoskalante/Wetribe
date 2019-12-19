@@ -102,6 +102,10 @@ export default function EventDisplay(props) {
     getEventInfo();
   }, [joined]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <ModalSignIn

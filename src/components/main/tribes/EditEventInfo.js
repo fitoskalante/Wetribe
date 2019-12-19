@@ -96,6 +96,10 @@ export default function EditEventInfo() {
     getEventInfo();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (!e)
     return (
       <div className="d-flex vh-100 justify-content-center align-items-center">
