@@ -16,7 +16,7 @@ export default function Homepage(props) {
   const [markers, setMarkers] = useState([]);
   const get_events_by_location = async city => {
     const res = await fetch(
-      `${process.env.REACT_APP_API_URL}/geteventslocation`,
+      `${process.env.REACT_APP_API_URL}/geteventsbylocation`,
       {
         method: "POST",
         headers: {
@@ -51,13 +51,13 @@ export default function Homepage(props) {
       <HeaderHome user={props.user} />
       <div className="container-fluid bg-white">
         <div className="container text-center">
-          <h1 className="py-2 pt-md-5  text-info">
-            {props.searchedCity || props.currentCity}
+          <h1 className="py-2 pt-md-5  text-info font-weight-bold">
+            {props.searchedCity || props.currentCity || "No City Found"}
           </h1>
-          <div className="container-fluid m-0 d-flex flex-column flex-md-row col-md-7  align-items-center justify-content-center mx-auto py-3">
-            <h4 className="col-12 col-md-6 m-0 h-100 py-3 ">
-              Search Tribes by City
-            </h4>
+          <div className="container-fluid m-0 d-flex flex-column flex-md-row col-md-10  align-items-center justify-content-center mx-auto py-3">
+            <h5 className="col-12 col-md-6 m-0 h-100 py-3 ">
+              Search Tribes by City:
+            </h5>
             <AutoCompleteCountry
               setCitySelected={setCitySelected}
               setCurrentCity={props.setCurrentCity}
@@ -85,26 +85,42 @@ export default function Homepage(props) {
             <div className="d-flex flex-column align-items-center">
               {" "}
               <Image width={150} height={150} src={EnvProt} alt="categ pic" />
-              <Button variant="info" className="rounded-pill font-weight-bold">
+              <Button
+                variant="info"
+                className="rounded-pill font-weight-bold"
+                style={{ width: "200px" }}
+              >
                 Environment Protection
               </Button>
             </div>
             <div className="d-flex flex-column align-items-center">
               <Image width={150} height={150} src={Recy} alt="categ pic" />
-              <Button variant="info" className="rounded-pill font-weight-bold">
+              <Button
+                variant="info"
+                className="rounded-pill font-weight-bold"
+                style={{ width: "200px" }}
+              >
                 Recycling
               </Button>
             </div>
             <div className="d-flex flex-column align-items-center">
               <Image width={150} height={150} src={Volun} alt="categ pic" />
-              <Button variant="info" className="rounded-pill font-weight-bold">
+              <Button
+                variant="info"
+                className="rounded-pill font-weight-bold"
+                style={{ width: "200px" }}
+              >
                 Volunteering
               </Button>
             </div>
             <div className="d-flex flex-column align-items-center">
               <Image width={150} height={150} src={Edu} alt="categ pic" />
 
-              <Button variant="info" className="rounded-pill font-weight-bold">
+              <Button
+                variant="info"
+                className="rounded-pill font-weight-bold"
+                style={{ width: "200px" }}
+              >
                 Education
               </Button>
             </div>
@@ -114,10 +130,9 @@ export default function Homepage(props) {
       {list ? (
         <EventsInLocation list={list} />
       ) : (
-        <EventList
-          currentCity={props.currentCity}
-          searchedCity={props.searchedCity}
-        />
+        <div className="container my-3 py-3 bg-light text-center rounded-custom">
+          <h5>No Events For This Location</h5>
+        </div>
       )}
 
       <div className="container py-5 bg-white rounded-custom">

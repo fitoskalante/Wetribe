@@ -25,7 +25,10 @@ export default function HeaderHome(props) {
               </h1>
 
               <Link to="/auth/signup">
-                <Button className="btn btn-primary shadow btn-lg rounded-pill my-5 col-8 col-sm-3 font-weight-bold">
+                <Button
+                  className="btn btn-primary shadow btn-lg rounded-pill my-5  font-weight-bold"
+                  style={{ width: "250px" }}
+                >
                   Join Wetribe
                 </Button>
               </Link>
@@ -36,11 +39,14 @@ export default function HeaderHome(props) {
                 It is time to
               </h3>
               <h1 className="display-4 font-weight-bold text-white header-text">
-                Make the Change
+                MAKE THE CHANGE
               </h1>
 
               <Link to="/create-event">
-                <Button className="btn btn-primary shadow btn-lg rounded-pill my-5 col-8 col-sm-3 font-weight-bold">
+                <Button
+                  className="btn btn-primary shadow btn-lg rounded-pill my-5 font-weight-bold"
+                  style={{ width: "250px" }}
+                >
                   Create your Tribe
                 </Button>
               </Link>

@@ -99,6 +99,7 @@ export default function EventCreator(props) {
   const handleCitCountChange = () => {
     return;
   };
+
   if (success)
     return <Route path="/event" render={() => <EventDisplay data={data} />} />;
   return (

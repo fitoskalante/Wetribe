@@ -18,10 +18,9 @@ export default function AutoCompletePlaces(props) {
       if (res.ok) {
         try {
           const gotLocation = await res.json();
-
-          if (gotLocation.address_components) {
-            const gac = gotLocation.address_components;
-            console.log("response autocomplkete", gac);
+          console.log("________________", gotLocation);
+          if (gotLocation.city.address_components) {
+            const gac = gotLocation.city.address_components;
             const getCountry = gac.filter(idx => idx.types[0] === "country")[0]
               .long_name;
 
@@ -54,7 +53,7 @@ export default function AutoCompletePlaces(props) {
               props.setCity(getCity);
             }
             props.setCountry(getCountry);
-            props.setAddress(gotLocation.formatted_address);
+            props.setAddress(gotLocation.address.formatted_address);
             return;
           } else {
             alert("no results");
@@ -86,7 +85,9 @@ export default function AutoCompletePlaces(props) {
             <Form.Label>Set the address</Form.Label>
             <Form.Control
               className="w-100"
-              {...getInputProps({ placeholder: "Type address" })}
+              {...getInputProps({
+                placeholder: props.address || "Type address"
+              })}
             />
             <ListGroup variant="flush">
               {loading ? <ListGroup.Item>...loading</ListGroup.Item> : null}

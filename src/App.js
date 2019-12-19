@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Main from "./components/main/Main";
 import UserAuthentication from "./components/userAuthentication/UserAuthentication";
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -20,13 +20,17 @@ function App() {
   const [user, setUser] = useState(null);
   const [currentCity, setCurrentCity] = useState("");
   const [searchedCity, setSearchedCity] = useState("");
+  const history = useHistory();
   const position = usePosition();
   const [myPosition, setMyPosition] = useState("");
-  console.log(position, myPosition);
+
+  console.log("okokokokokokokokokoko", position, myPosition);
+
   const getCurrentAddress = async pos => {
     if (!pos.lat && !pos.lng && currentCity !== "") {
       return;
     } else {
+      console.log("ingetcurrentaddress", position);
       const res = await fetch(`${process.env.REACT_APP_API_URL}/getaddress`, {
         method: "POST",
         headers: {
@@ -37,30 +41,31 @@ function App() {
       if (res.ok) {
         try {
           const gotLocation = await res.json();
-          if (gotLocation.address_components) {
+          console.log("currentaddress", gotLocation);
+          if (gotLocation.city.address_components) {
             if (
-              gotLocation.address_components.filter(
+              gotLocation.city.address_components.filter(
                 idx => idx.types[0] === "locality"
               ).length !== 0
             ) {
-              const getCity = gotLocation.address_components.filter(
+              const getCity = gotLocation.city.address_components.filter(
                 idx => idx.types[0] === "locality"
               )[0].long_name;
               setCurrentCity(getCity);
             } else if (
-              gotLocation.address_components.filter(
+              gotLocation.city.address_components.filter(
                 idx => idx.types[0] === "locality"
               ).length === 0 &&
-              gotLocation.address_components.filter(
+              gotLocation.city.address_components.filter(
                 idx => idx.types[0] === "administrative_area_level_1"
               ).length !== 0
             ) {
-              const getCity = gotLocation.address_components.filter(
+              const getCity = gotLocation.city.address_components.filter(
                 idx => idx.types[0] === "administrative_area_level_1"
               )[0].long_name;
               setCurrentCity(getCity);
             } else {
-              const getCity = gotLocation.address_components.filter(
+              const getCity = gotLocation.city.address_components.filter(
                 idx => idx.types[0] === "administrative_area_level_2"
               )[0].long_name;
               setCurrentCity(getCity);
@@ -76,6 +81,7 @@ function App() {
   };
 
   const setMyPos = () => {
+    console.log("reuning setMyPos");
     if (myPosition) {
       setMyPosition(myPosition);
     } else if (position.latitude) {
@@ -92,6 +98,7 @@ function App() {
     if (res.ok) {
       sessionStorage.clear("token");
       setUser(null);
+      history.push("/");
     }
   };
 
